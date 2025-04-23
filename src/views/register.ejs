@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="register-container">
+    <h1>Register</h1>
+    <% if (notice && notice !== "") { %>
+      <p class="notice"><%= notice %></p>
+    <% } %>
+
+    <% if (enabled) { %>
+      <form id="registerForm" action="/auth/register" method="POST">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        
+        <label for="phone">Phone</label>
+        <div style="display: flex; align-items: center;">
+          <select id="countryCode" name="countryCode" style="margin-right: 5px;">
+            <option value="+91">India (+91)</option>
+            <option value="+1">USA (+1)</option>
+            <!-- Add more country codes as needed -->
+          </select>
+          <input type="text" id="phone" name="phoneRaw" placeholder="Enter your phone number" required>
+        </div>
+
+        <button type="submit">Register</button>
+      </form>
+    <% } else { %>
+      <p>Registration is currently disabled.</p>
+    <% } %>
+
+    <p>Already have an account? <a href="/auth/login">Login here</a>.</p>
+  </div>
+
+  <script>
+    // Before submitting the form, combine the country code with the phone number.
+    document.querySelector('#registerForm').addEventListener('submit', function (event) {
+      const phoneInput = document.querySelector('#phone').value.trim();
+      const countryCode = document.querySelector('#countryCode').value.trim();
+  
+      // Validate the phone number input
+      if (!phoneInput || isNaN(phoneInput) || phoneInput.length < 7) {
+        event.preventDefault(); // Prevent form submission
+        alert('Please enter a valid phone number.');
+        return;
+      }
+  
+      // Combine country code and phone number
+      const fullPhoneNumber = countryCode + phoneInput;
+  
+      // Check if the hidden input already exists
+      let hiddenInput = document.querySelector('input[name="phone_number"]');
+      if (!hiddenInput) {
+        // Create the hidden input field if it doesn't exist
+        hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'phone_number'; // WordPress expects this field as 'phone_number'
+        this.appendChild(hiddenInput);
+      }
+  
+      // Set the value of the hidden input field
+      hiddenInput.value = fullPhoneNumber;
+  
+      // Disable the raw phone input to avoid duplicate data
+      document.querySelector('#phone').disabled = true;
+    });
+  </script>
+</body>
+</html>

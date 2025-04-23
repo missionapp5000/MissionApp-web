@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie Scraper</title>
+</head>
+<body>
+  <h1>Select Source</h1>
+  <ul>
+    <% sources.forEach(source => { %>
+      <li><a href="/?source=<%= source %>"><%= source %></a></li>
+    <% }) %>
+  </ul>
+  <h2>Movies</h2>
+  <% if (movies) { %>
+    <% movies.forEach(movie => { %>
+      <div>
+        <img src="<%= movie.poster %>" alt="<%= movie.title %>">
+        <a href="/<%= movie.source %>/<%= movie.id %>"><%= movie.title %></a>
+      </div>
+    <% }) %>
+  <% } %>
+</body>
+</html>

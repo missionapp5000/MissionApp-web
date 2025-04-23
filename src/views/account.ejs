@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account</title>
+</head>
+<body>
+  <h1>Account Details</h1>
+  <p><strong>Username:</strong> <%= username %></p>
+  <p><strong>Mobile Number:</strong> <%= mobile %></p>
+  <a href="/dashboard">Back to Dashboard</a>
+  <form action="/auth/logout" method="POST" style="margin-top: 20px;">
+    <button type="submit">Logout</button>
+  </form>
+</body>
+</html>

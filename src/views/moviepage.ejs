@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= movie.title %></title>
+  <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet">
+</head>
+<body>
+  <h1><%= movie.title %></h1>
+  <video id="movie-player" class="video-js" controls preload="auto" width="640" height="360">
+    <source src="<%= movie.videoUrl %>" type="video/mp4">
+  </video>
+  <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+</body>
+</html>
